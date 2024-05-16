@@ -1,0 +1,14 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: cimg/openjdk:17.0.11-browsers
+    steps:
+      - checkout
+      # Build and test the project
+      - run:
+          name: Run test
+          command: mvn test -Dcucumber.filter.tags="@Regression"
+      # Store test artifacts
+      - store_artifacts:
+          path: ./results       
