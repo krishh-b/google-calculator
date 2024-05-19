@@ -14,11 +14,11 @@
         <properties>
           <property>
             <name>dataproviderthreadcount</name>
-            <value>4</value>
+            <value>${threadCount}</value>
           </property>
         </properties>
         <suiteXmlFiles>
-          <suiteXmlFile>RegressionTest.xml</suiteXmlFile>
+          <suiteXmlFile>RegressionTest_Parallel.xml</suiteXmlFile>
         </suiteXmlFiles>
       </configuration>
     </plugin>
@@ -39,6 +39,7 @@
     <testng.version>7.9.0</testng.version>
     <cucumber.version>7.15.0</cucumber.version>
     <webdrivermanager.version>5.8.0</webdrivermanager.version>
+    <threadCount>4</threadCount>
   </properties>
   <dependencies>
     <dependency>

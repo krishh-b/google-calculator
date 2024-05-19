@@ -27,7 +27,7 @@ public class CalculatorTest {
     }
     @When("I press operator {string}")
     public void pressOperatorButton(String button) {
-        SELENIUM_UTIL.click(By.xpath(CalculatorPage.getOperatorButton(CalculatorUtils.getOperatorSymbol(button))));
+        SELENIUM_UTIL.click(By.xpath(CalculatorPage.getOperatorButton(CalculatorUtils.getOperatorName(button))));
     }
     @When("^I (?:press|click) (?:the ) ?(AC|CE) button$")
     public void pressACorCEButton(String button) {
@@ -43,16 +43,16 @@ public class CalculatorTest {
     @Then("the result should be {string} and the expression should be {string}")
     public void validateResult(String expectedResult, String expectedExpression) {
         String actualResult = SELENIUM_UTIL.getText(By.xpath(CalculatorPage.getCalculationResult()));
-        String actualExpression = SELENIUM_UTIL.getText(By.xpath(CalculatorPage.getExpression(expectedExpression)));
-        Assert.assertEquals(actualResult, expectedResult, "Calculator result validation failed.");
-        Assert.assertEquals(actualExpression, expectedExpression, "Calculator expression validation failed.");
+        String actualExpression = SELENIUM_UTIL.getText(By.xpath(CalculatorPage.getExpression()));
+        Assert.assertEquals(actualResult, CalculatorUtils.convertOperatorToSymbol(expectedResult), "Calculator result validation failed.");
+        Assert.assertEquals(actualExpression, CalculatorUtils.convertOperatorToSymbol(expectedExpression), "Calculator expression validation failed.");
     }
     // Method for entering multiple digits
     public void enterDigits(String number) {
         String[] digits = number.replaceAll("\\s", "").split("");
         for(String digit: digits){
             if (CalculatorUtils.isOperator(digit)) {
-                SELENIUM_UTIL.click(By.xpath(CalculatorPage.getOperatorButton(CalculatorUtils.getOperatorSymbol(digit))));
+                SELENIUM_UTIL.click(By.xpath(CalculatorPage.getOperatorButton(CalculatorUtils.getOperatorName(digit))));
                 continue;
             }
             SELENIUM_UTIL.click(By.xpath(CalculatorPage.getCalculatorButton(digit)));

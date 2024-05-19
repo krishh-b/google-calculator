@@ -16,7 +16,8 @@ This project is a test automation framework designed to perform UI testing for t
 	│   .gitignore
 	│   pom.xml
 	│   README.md
-	│   regressionTest.xml
+	│   RegressionTest.xml
+    │   RegressionTest_Parallel.xml
 	│   runTest.bat
 	│
 	├───.circleci
@@ -24,7 +25,7 @@ This project is a test automation framework designed to perform UI testing for t
 	│
 	│
 	├───documentation
-	│       Test Automation Solution Document.docx
+	│       Test Automation Solution Document.pdf
 	│
 	├───results
 	│       Sample_Failed_Test_Result.html
@@ -55,6 +56,7 @@ This project is a test automation framework designed to perform UI testing for t
         	│           │
         	│           ├───runner
         	│           │       TestRunner.java
+                        │       ParallelRunner.java
 	        │           │
         	│           └───stepdefinitions
         	│                   CalculatorTest.java
@@ -78,12 +80,20 @@ This project is a test automation framework designed to perform UI testing for t
        mvn clean install
 
    ### Run the tests
-       mvn test -Dcucumber.filter.tags="@Regression"
+       mvn test -Dcucumber.filter.tags="@Regression" -DthreadCount="4" -Dbrowser="chrome"
 
 ### Run Tests from the IDE
   Open the project in IntelliJ IDEA.
+  #### Running from TESTNG.xml file
   Navigate to the RegressionTest.xml file.
   Right-click on the file and select Run 'RegressionTest.xml'.
+  #### Running from Test Runner class
+  Navigate to the TestRunner.java file.
+  Right-click on the file and select Run 'TestRunner.java'.
+  #### Running tests parallel
+  Navigate to the ParallelRunner.java file.
+  Right-click on the file and select Run 'ParallelRunner.java'.<br>
+  **Note: The default thread count (10) will be applied when running from this class.**
 
 ## Configuration
   #### Maven Dependencies
@@ -93,8 +103,8 @@ This project is a test automation framework designed to perform UI testing for t
   WebDriverManager is used to manage browser drivers automatically. This eliminates the need for manual download and configuration of WebDriver binaries.
 
   #### Parallel Execution
-  Parallel execution is configured in the pom.xml file to run tests with a thread count of 4.<br>
-  **Note: The thread count is only considered when running the tests from the command line or via a TESTNG XML file. If the tests are executed from the TestRunner class, the default thread count of 10 will be effective.**
+  Parallel execution is configured in the pom.xml file. The default count is set as 4. However, the count can be overridden by passing "threadCount" as a parameter.<br>
+  **Note: The thread count can only be controlled when the tests are ran using mvn test command.**
 
 ## Reporting
   Test results are saved in the HTML format:<br>

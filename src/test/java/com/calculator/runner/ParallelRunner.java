@@ -9,9 +9,13 @@ import org.testng.annotations.DataProvider;
         glue = {"com.calculator.stepdefinitions", "com.calculator.hooks"},
         features = {"src/test/resources/features/"},
         monochrome = true,
-        tags="@Test"
+        tags="@Regression"
 )
 
-public class TestRunner extends AbstractTestNGCucumberTests {
-
+public class ParallelRunner extends AbstractTestNGCucumberTests {
+    @Override
+    @DataProvider(parallel = true)
+    public Object[][] scenarios() {
+        return super.scenarios();
+    }
 }
