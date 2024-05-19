@@ -8,7 +8,7 @@ jobs:
       # Build and test the project
       - run:
           name: Run test
-          command: mvn test -Dcucumber.filter.tags="@Regression" -DthreadCount="4"
+          command: mvn test -Dcucumber.filter.tags="@Regression" -DthreadCount="4" -DheadlessBrowser="true"
       # Store test artifacts
       - store_artifacts:
           path: ./results       
