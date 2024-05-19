@@ -1,6 +1,5 @@
 package com.calculator.utils;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -14,15 +13,12 @@ public class DriverFactory {
         if(DRIVER == null) {
             switch(browserName) {
                 case "firefox":
-                    WebDriverManager.firefoxdriver().setup();
                     DRIVER = new FirefoxDriver();
                     break;
                 case "edge":
-                    WebDriverManager.edgedriver().setup();
                     DRIVER = new EdgeDriver();
                     break;
                 default:
-                    WebDriverManager.chromedriver().setup();
                     DRIVER = new ChromeDriver();
                     break;
             }
