@@ -16,7 +16,8 @@ public class TestHooks {
     @Before
     public void setup() {
         String browserName = System.getProperty("browser") != null ? System.getProperty("browser") : Utility.getConfigProperty("defaultBrowser");
-        DRIVER_FACTORY.getDriver(browserName);
+        boolean isHeadlessBrowser = System.getProperty("headlessBrowser") != null && System.getProperty("headlessBrowser").equalsIgnoreCase("true");
+        DRIVER_FACTORY.getDriver(browserName, isHeadlessBrowser);
     }
     @After
     public void tearDown(Scenario scenario) {
