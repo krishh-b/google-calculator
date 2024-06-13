@@ -1,29 +1,40 @@
 package com.calculator.utils;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.time.Duration;
 
 public class DriverFactory {
     private  WebDriver DRIVER;
-    public void getDriver(String browserName) {
+    public void getDriver(String browserName, boolean isHeadlessBrowser) {
         if(DRIVER == null) {
             switch(browserName) {
                 case "firefox":
-                    WebDriverManager.firefoxdriver().setup();
-                    DRIVER = new FirefoxDriver();
+                    FirefoxOptions firefoxOptions = new FirefoxOptions();
+                    if(isHeadlessBrowser) {
+                        firefoxOptions.addArguments("--headless=new");
+                    }
+                    DRIVER = new FirefoxDriver(firefoxOptions);
                     break;
                 case "edge":
-                    WebDriverManager.edgedriver().setup();
-                    DRIVER = new EdgeDriver();
+                    EdgeOptions edgeOptions = new EdgeOptions();
+                    if(isHeadlessBrowser) {
+                        edgeOptions.addArguments("--headless=new");
+                    }
+                    DRIVER = new EdgeDriver(edgeOptions);
                     break;
                 default:
-                    WebDriverManager.chromedriver().setup();
-                    DRIVER = new ChromeDriver();
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    if(isHeadlessBrowser) {
+                        chromeOptions.addArguments("--headless=new");
+                    }
+                    DRIVER = new ChromeDriver(chromeOptions);
                     break;
             }
             String baseUrl = Utility.getConfigProperty("baseUrl");
